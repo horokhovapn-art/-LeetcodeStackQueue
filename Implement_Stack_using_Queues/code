@@ -1,0 +1,56 @@
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    def push(self, x):
+        self.queue.append(x)
+    
+    def pop(self):
+        if self.queue:
+            return self.queue.pop(0)
+
+    def peek(self):
+        if self.queue:
+            return self.queue[0]
+
+    def empty(self):
+        return len(self.queue) == 0
+
+class MyStack(object):
+
+    def __init__(self):
+        self.queue_temp = Queue()
+        self.queue_fin = Queue()
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        self.queue_temp.push(x)
+        while not self.queue_fin.empty():
+            el = self.queue_fin.pop()
+            self.queue_temp.push(el)
+        self.queue_temp,self.queue_fin = self.queue_fin,self.queue_temp
+
+    def pop(self):
+        """
+        :rtype: int
+        """
+        if not self.queue_fin.empty():
+            return self.queue_fin.pop()
+
+    
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        if not self.queue_fin.empty():
+            return self.queue_fin.peek()
+
+    def empty(self):
+        """
+        :rtype: bool
+        """
+        return self.queue_fin.empty()

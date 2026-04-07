@@ -1,20 +1,36 @@
+class Node:
+    def __init__(self,value):
+        self.data = value
+        self.next = None
+
 class Queue:
     def __init__(self):
-        self.queue = []
+        self.front = None
+        self.end = None
 
     def push(self, x):
-        self.queue.append(x)
-    
+        new_node = Node(x)
+        if self.empty():
+            self.front = new_node
+            self.end = new_node
+        else:
+            self.end.next = new_node
+            self.end = self.end.next
+
     def pop(self):
-        if self.queue:
-            return self.queue.pop(0)
+        if not self.empty():
+            el = self.front.data
+            self.front = self.front.next
+            if self.front is None:
+                self.end = None
+            return el
 
     def peek(self):
-        if self.queue:
-            return self.queue[0]
+        if not self.empty():
+            return self.front.data
 
     def empty(self):
-        return len(self.queue) == 0
+        return self.front is None
 
 class MyStack(object):
 

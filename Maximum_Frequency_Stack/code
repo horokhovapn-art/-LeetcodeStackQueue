@@ -1,20 +1,30 @@
+class Node:
+    def __init__(self,value):
+        self.data = value
+        self.next = None
+
 class Stack:
     def __init__(self):
-        self.stack = []
+        self.head = None
     
     def push(self,value):
-        self.stack.append(value)
+        new_node = Node(value)
+        new_node.next = self.head
+        self.head = new_node
 
     def pop(self):
-        if not self.empty():
-            return self.stack.pop()
+        if self.head:
+            new_node = self.head
+            self.head = self.head.next
+            return new_node.data
 
     def peek(self):
-        if not self.empty():
-            return self.stack[-1]
+        if self.head:
+            return self.head.data
         
     def empty(self):
-        return len(self.stack) == 0
+        return self.head is None
+
 
 class FreqStack(object):
 
